@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+{% if not nmap_ok %}
+<div class="banner">Nmap was not found on this machine. Install it (see README) and restart the app.</div>
+{% endif %}
+
+<section class="panel">
+  <h2>New scan</h2>
+  <form id="scan-form">
+    <label>Target
+      <input id="target" placeholder="192.168.1.0/24 or scanme.nmap.org" required>
+    </label>
+    <label>Profile
+      <select id="profile">
+        {% for key, p in profiles.items() %}
+        <option value="{{ key }}" {% if key == 'quick' %}selected{% endif %}>{{ p.label }}: {{ p.description }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="authorized">
+      I own this network or have written permission to scan it.</label>
+    <button type="submit" id="go">Start scan</button>
+    <p id="form-msg" class="msg" role="alert"></p>
+  </form>
+</section>
+
+<section class="panel" id="result-panel" hidden>
+  <h2 id="result-title">Result</h2>
+  <div id="result"></div>
+</section>
+
+<section class="panel">
+  <h2>History</h2>
+  <div class="scroll"><table id="history">
+    <thead><tr><th>#</th><th>Target</th><th>Profile</th><th>Status</th><th>Date</th><th>Findings</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p id="empty" class="msg">No scans yet. Run your first scan above.</p>
+</section>
+{% endblock %}
