@@ -129,4 +129,4 @@ git push -u origin main
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Replace `<your name>` in the file.
+MIT, see [LICENSE](LICENSE).
